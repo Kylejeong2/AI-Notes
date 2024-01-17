@@ -27,7 +27,9 @@ const DashboardPage = (props: Props) => {
                     </div>
 
                     <div className="h-8"></div>
+
                     <Separator />
+                    
                     <div className="h-8"></div>
                     {/* <!-- conditional rendering --> */}
                     <div className='text-center'>
