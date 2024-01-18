@@ -1,3 +1,4 @@
+import CreateNoteDialog from '@/components/CreateNoteDialog';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { UserButton } from '@clerk/nextjs';
@@ -20,7 +21,7 @@ const DashboardPage = (props: Props) => {
                             </Link>
 
                             <div className='w-4'></div>
-                            <h1 className='text-3xl font-bold text-grau-900'>My Notes</h1>
+                            <h1 className='text-3xl font-bold text-gray-900'>My Notes</h1>
                             <div className='w-4'></div>
                             <UserButton />
                         </div>
@@ -34,6 +35,10 @@ const DashboardPage = (props: Props) => {
                     {/* <!-- conditional rendering --> */}
                     <div className='text-center'>
                         <h2 className='text-xl text-gray-500'>You don't have any notes yet.</h2>
+                    </div>
+
+                    <div className='grid sm:grid-cols-3 md:grid-cols-5 grid-cols-1 gap-3'>
+                        <CreateNoteDialog />
                     </div>
                 </div>
             </div>
