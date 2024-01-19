@@ -2,15 +2,17 @@
 
 import React from 'react'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
-import { Plus } from 'lucide-react'
+import { Loader2, Plus } from 'lucide-react'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
 
 type Props = {}
 
 const CreateNoteDialog = (props: Props) => {
+    const router = useRouter()
     const [input, setInput] = React.useState('');
     const createNotebook = useMutation({
         mutationFn: async () => {
@@ -31,9 +33,11 @@ const CreateNoteDialog = (props: Props) => {
         createNotebook.mutate(undefined, {
             onSuccess: ({note_id}) => {
                 console.log("Note Created", { note_id })
+                router.push(`/notebook/${note_id}`)
             },
             onError: error => {
                 console.error(error)
+                window.alert("Failed to create new Notebook")
             },
         })
     };
@@ -63,7 +67,9 @@ const CreateNoteDialog = (props: Props) => {
                 
                 <div className='flex items-center gap-2'>
                     <Button type='reset' variant={"secondary"}>Cancel</Button>
-                    <Button className='bg-green-600' type="submit">Create</Button>
+                    <Button className='bg-green-600' type="submit" disabled={createNotebook.isPending}>
+                        {createNotebook.isPending && ( <Loader2 className='w-4 h-4 mr-2 animate-spin'></Loader2>
+                        )}Create</Button>
                 </div>
                 
 
