@@ -26,7 +26,7 @@ const CreateNoteDialog = (props: Props) => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (input == ''){
-            window.alert('Please enter a name for your notebook')
+            window.alert('Please enter a name for your notebook.')
             return
         }
 
@@ -71,8 +71,7 @@ const CreateNoteDialog = (props: Props) => {
                         {createNotebook.isPending && ( <Loader2 className='w-4 h-4 mr-2 animate-spin'></Loader2>
                         )}Create</Button>
                 </div>
-                
-
+            
             </form>
         </DialogContent>
     </Dialog>
