@@ -9,12 +9,17 @@ import { useDebounce } from '@/lib/useDebounce';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { NoteType } from '@/lib/db/schema';
-import Text from '@tiptap/extension-text'
+import Text from '@tiptap/extension-text';
+import { useCompletion } from 'ai/react';
 
 type Props = {note: NoteType}
 
 const TipTapEditor = ({ note }: Props) => {
     const [editorState, setEditorState] = React.useState(note.editorState || `<h1>${note.name}</h1>`);
+    const {complete, completion} = useCompletion({
+        api: './api/completion'
+    })
+
     const saveNote = useMutation({
         mutationFn: async () => {
             const response = await axios.post('/api/saveNote', {
@@ -29,11 +34,24 @@ const TipTapEditor = ({ note }: Props) => {
         addKeyboardShortcuts() {
             return {
                 'Shift-a': () => {
-                    console.log("activate AI");
+                    const prompt = this.editor.getText().split(' ').slice(-30).join(' ')
+                    complete(prompt)
                     return true;
                 } 
             }
         }
+    })
+
+    const lastCompletion = React.useRef('')
+    const token = React.useMemo(() => {
+        if(!completion) return
+        const diff = completion.slice(lastCompletion.current.length)
+        lastCompletion.current = completion;
+        editor?.commands.insertContent(diff);
+    }, [completion, editor])
+
+    React.useEffect(() => {
+        console.log(completion)
     })
 
     const editor = useEditor({
