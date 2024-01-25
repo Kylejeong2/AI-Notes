@@ -42,18 +42,6 @@ const TipTapEditor = ({ note }: Props) => {
         }
     })
 
-    const lastCompletion = React.useRef('')
-    const token = React.useMemo(() => {
-        if(!completion) return
-        const diff = completion.slice(lastCompletion.current.length)
-        lastCompletion.current = completion;
-        editor?.commands.insertContent(diff);
-    }, [completion, editor])
-
-    React.useEffect(() => {
-        console.log(completion)
-    })
-
     const editor = useEditor({
         autofocus: true,
         extensions: [StarterKit, customText],
@@ -63,6 +51,16 @@ const TipTapEditor = ({ note }: Props) => {
         },
     });
 
+    const lastCompletion = React.useRef('')
+
+    React.useEffect(() => {
+        if(!completion || !editor) return;
+        const diff = completion.slice(lastCompletion.current.length);
+        lastCompletion.current = completion;
+        editor.commands.insertContent(diff);
+    }, [completion, editor]);
+
+    
     const debouncedEditorState = useDebounce(editorState, 500);
     React.useEffect(() => {
         if (debouncedEditorState === '') return 
