@@ -25,6 +25,8 @@
     "clsx": "^2.1.0",
     "dotenv": "^16.3.1",
     "drizzle-orm": "^0.29.3",
+    "encoding": "^0.1.13",
+    "firebase": "^10.7.2",
     "lucide-react": "^0.309.0",
     "neonctl": "^1.26.1",
     "next": "14.0.4",
