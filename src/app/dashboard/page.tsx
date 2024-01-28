@@ -43,7 +43,7 @@ const DashboardPage = async (props: Props) => {
                     {/* <!-- conditional rendering --> */}
                     {notes.length === 0 && (
                         <div className='text-center'>
-                            <h2 className='text-xl text-gray-500'>You don't have any notes yet.</h2>
+                            <h2 className='text-xl text-gray-500'>You don't have any notes yet!</h2>
                         </div>
                     )}
                     
