@@ -7,7 +7,7 @@ import { UserButton, auth } from '@clerk/nextjs';
 import { eq } from 'drizzle-orm';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-import React from 'react'
+import React from 'react';
 
 type Props = {}
 
