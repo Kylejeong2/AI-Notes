@@ -40,8 +40,7 @@ const TipTapEditor = ({ note }: Props) => {
         },
       };
     },
-  });
-  
+  })
 
   const editor = useEditor({
     autofocus: true,
