@@ -31,10 +31,13 @@ const TipTapEditor = ({ note }: Props) => {
   });
   const customText = Text.extend({
     addKeyboardShortcuts() {
-      return {
-        "Shift-a": () => {
+        return {
+        "Shift-`": () => {
           // take the last 30 words
           const prompt = this.editor.getText().split(" ").slice(-30).join(" ");
+          if(this.editor.getText().length <= 5){
+            return true;
+          }
           complete(prompt);
           return true;
         },
@@ -76,7 +79,7 @@ const TipTapEditor = ({ note }: Props) => {
     <>
       <div className="flex">
         {editor && <TipTapMenuBar editor={editor} />}
-        <Button disabled variant={"outline"}>
+        <Button disabled variant={"outline"} className="mx-4">
           {saveNote.isPending ? "Saving..." : "Saved"}
         </Button>
       </div>
@@ -88,7 +91,7 @@ const TipTapEditor = ({ note }: Props) => {
       <span className="text-sm">
         Tip: Press{" "}
         <kbd className="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">
-          Shift + A
+          Shift + `
         </kbd>{" "}
         for AI autocomplete (GPT-3.5)
       </span>
